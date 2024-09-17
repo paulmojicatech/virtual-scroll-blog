@@ -21,6 +21,7 @@ import { GithubCardComponent } from './components/github-card/github-card.compon
   `,
   styles: `
     header {
+      heigh: 5rem;
       h1 {
         margin-left: 1rem;
       }

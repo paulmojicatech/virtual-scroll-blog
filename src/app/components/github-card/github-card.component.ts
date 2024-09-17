@@ -34,6 +34,9 @@ import { take } from 'rxjs';
       font-weight: bold;
       background-color: #f0f0f0f0;
     }
+    .card-body {
+      overflow: auto
+    }
   `
 })
 export class GithubCardComponent implements OnInit {
