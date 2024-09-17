@@ -1,38 +1,56 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { GithubCardComponent } from './components/github-card/github-card.component';
-import { GithubHttpService } from './services/github-http.service';
-import { GithubRepoHttpResponse } from './models/repos.interface';
-import { take } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, GithubCardComponent],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, GithubCardComponent],
   template: `
-    <h1>Paul Mojica Technologies</h1>
-    <div class="cards-container">
-      @for(repo of reposS(); track $index) {
-        <div class="card-container">
-        <app-github-card [repoS]="repo"></app-github-card>
-        </div>        
-      }
-    </div>
+    <header class="header">
+      <h1>Paul Mojica Technologies</h1>
+      <nav>
+        <ul>
+          <li><a routerLinkActive="active" routerLink="/no-virtualization">No Virtualization</a></li>
+          <li><a routerLinkActive="active" routerLink="/virtual-scroll">Virtual Scroll</a></li>
+          <li><a routerLinkActive="active" routerLink="/deferred-view">Deferred View</a></li>
+        </ul>
+      </nav>
+    </header>    
+    <router-outlet></router-outlet>
   `,
   styles: `
-    .card-container {
-      margin: 1rem;
+    header {
+      h1 {
+        margin-left: 1rem;
+      }
+      nav {
+        margin-right: 1rem;
+      }
+      display: inline-flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+    nav {
+      ul {
+        list-style: none;
+        display: inline-flex;
+        li {
+          padding: 0 1rem;
+        }
+        a {
+          color: #45b6fe;
+          text-decoration: underline;          
+          &.active {
+            color: #8fd3fe;
+            cursor: initial;
+          }
+        }
+      }
     }
   `
 })
-export class AppComponent implements OnInit {
-  private _githubSvc = inject(GithubHttpService);
-
-  reposS = signal<GithubRepoHttpResponse[]>([]);
-
-  ngOnInit(): void {
-    this._githubSvc.getGithubRepos().pipe(take(1)).subscribe(repos => {
-      this.reposS.set(repos);
-    });
-  }
+export class AppComponent {
+  
 }
