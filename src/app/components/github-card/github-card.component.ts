@@ -16,12 +16,24 @@ import { take } from 'rxjs';
         <ul>
          @for(commit of commitsS(); track $index) {
           <li>{{commit.commit.message}}</li>
+         } @empty {
+          <li>No commits found</li>
          }
         </ul>  
       </div>
     </div>
   `,
   styles: `
+    .card {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .card-header {
+      font-size: 1.5em;
+      padding: 10px;
+      font-weight: bold;
+      background-color: #f0f0f0f0;
+    }
   `
 })
 export class GithubCardComponent implements OnInit {

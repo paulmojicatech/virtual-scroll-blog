@@ -13,11 +13,16 @@ import { take } from 'rxjs';
     <h1>Paul Mojica Technologies</h1>
     <div class="cards-container">
       @for(repo of reposS(); track $index) {
+        <div class="card-container">
         <app-github-card [repoS]="repo"></app-github-card>
+        </div>        
       }
     </div>
   `,
   styles: `
+    .card-container {
+      margin: 1rem;
+    }
   `
 })
 export class AppComponent implements OnInit {
